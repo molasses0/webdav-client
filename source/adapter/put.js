@@ -18,7 +18,8 @@ module.exports = {
         options = options || { headers: {} };
         return fetch(url + directoryPath, {
                 method: "MKCOL",
-                headers: options.headers
+                headers: options.headers,
+                auth: options.auth
             })
             .then(responseHandlers.handleResponseCode);
     },
@@ -35,7 +36,8 @@ module.exports = {
         return fetch(url + filePath, {
                 method: "PUT",
                 headers: options.headers,
-                body: data
+                body: data,
+                auth: options.auth
             })
             .then(responseHandlers.handleResponseCode);
     },
@@ -52,7 +54,8 @@ module.exports = {
         return fetch(url + filePath, {
                 method: "PUT",
                 headers: options.headers,
-                body: text
+                body: text,
+                auth: options.auth
             })
             .then(responseHandlers.handleResponseCode);
     }

@@ -20,7 +20,8 @@ module.exports = {
                             Depth: 1
                         },
                         options.headers
-                    )
+                    ),
+                    auth: options.auth
                 }
             )
             .then(responseHandlers.handleResponseCode)
@@ -47,7 +48,8 @@ module.exports = {
         options = options || { headers: {} };
         return fetch(url + filePath, {
                 method: "GET",
-                headers: options.headers
+                headers: options.headers,
+                auth: options.auth
             })
             .then(responseHandlers.handleResponseCode)
             .then(function(res) {
@@ -64,7 +66,8 @@ module.exports = {
                         Depth: 1
                     },
                     options.headers
-                )
+                ),
+                auth: options.auth
             })
             .then(responseHandlers.handleResponseCode)
             .then(function(res) {
@@ -93,7 +96,8 @@ module.exports = {
     getTextContents: function getTextContents(url, filePath, options) {
         options = options || { headers: {} };
         return fetch(url + filePath, {
-                headers: options.headers
+                headers: options.headers,
+                auth: options.auth
             })
             .then(responseHandlers.handleResponseCode)
             .then(function(res) {

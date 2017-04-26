@@ -27,14 +27,33 @@ module.exports = {
      * @param {String} remoteURL The target URL for the webdav server
      * @param {String=} username The username for the remote account
      * @param {String=} password The password for the remote account
+     * @param {String=} domain The domain for NTLM auth
+     * @param {String=} workstation The workstation for NTLM auth
      * @returns {ClientInterface} The webdav interface
      */
-    createClient: function createClient(remoteURL, username, password) {
+    createClient: function createClient(remoteURL, username, password, domain, workstation) {
         var __url = urlTools.sanitiseBaseURL(remoteURL);
+
+        var authType = undefined;
+
+        if (typeof domain === "string") {
+            authType = "ntlm";
+        } else if (username) {
+            authType = "basic";
+        }
+
         var baseOptions = {
-            headers: {}
+            headers: {},
+            auth: {
+                authType: authType,
+                username: username,
+                password: password,
+                domain: domain,
+                workstation: workstation
+            }
         };
-        if (username && username.length > 0) {
+
+        if (authType === "basic") {
             baseOptions.headers.Authorization = authTools.generateAuthHeader(username, password);
         }
 

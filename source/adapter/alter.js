@@ -9,7 +9,8 @@ module.exports = {
         options = options || { headers: {} };
         return fetch(url + targetPath, {
                 method: "DELETE",
-                headers: options.headers
+                headers: options.headers,
+                auth: options.auth
             })
             .then(responseHandlers.handleResponseCode);
     },
@@ -23,7 +24,8 @@ module.exports = {
                         Destination: url + targetFilePath
                     },
                     options.headers
-                )
+                ),
+                auth: options.auth
             })
             .then(responseHandlers.handleResponseCode);
     }
